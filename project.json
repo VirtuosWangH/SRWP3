@@ -1,0 +1,36 @@
+{
+    "project_type": "javascript",
+
+    "debugMode" : 1,
+    "showFPS" : true,
+    "frameRate" : 60,
+    "id" : "gameCanvas",
+    "renderMode" : 0,
+    "engineDir":"frameworks/cocos2d-html5",
+
+    "modules" : ["cocos2d"],
+
+    "jsList" : [
+        "src/resource.js",
+        "src/app.js",
+
+        "src/GameScene.js",
+        "src/views/BGLayer.js",
+        "src/views/FGLayer.js",
+        "src/views/ControlBarLayer.js",
+        "src/views/SymbolLayer.js",
+        "src/views/SymbolNewLayer.js",
+        "src/views/WinningLayer.js",
+        "src/views/PayTableLayer.js",
+        "src/views/WinLinesLayer.js",
+        "src/views/WinFrameLayer.js",
+        "src/views/BetLineSelectorLayer.js",
+        "src/views/TitleLayer.js",
+
+        "src/model/vo/SymbolVO.js",
+
+        "src/test/TestLineClipping.js",
+        "src/test/TestWinLineTiles.js",
+        "src/test/TestBlendFunction.js"
+    ]
+}
