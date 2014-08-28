@@ -7,8 +7,8 @@ var TestLineClipping = cc.Layer.extend({
     ctor:function(){
         this._super();
         this.size = cc.director.getWinSize();
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(res.textureLine01_plist);
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(res.textureAssets01_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.textureLine01_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.textureAssets01_plist);
 
         this.winLineClipper = cc.ClippingNode.create();
         this.winLineClipper.setTag("winLineClipper");
@@ -18,12 +18,14 @@ var TestLineClipping = cc.Layer.extend({
         this.addChild(this.winLineClipper);
         this.winLineClipper.setInverted(true);
 
-        var stencil = cc.Sprite.createWithSpriteFrameName("symbolMask.png");
+        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("symbolMask.png");
+        var stencil = cc.Sprite.createWithSpriteFrame(spriteFrame);
         stencil.setPosition(this.size.width/2,this.size.height/2+100);
         this.winLineClipper.setStencil(stencil);
 
 //        var tempLine = cc.LayerColor.create(cc.c4b(0,255,255,255),this.size.width,this.size.height);
-        var tempLine = cc.Sprite.createWithSpriteFrameName("winline-002.png");
+        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("winline-002.png");
+        var tempLine = cc.Sprite.createWithSpriteFrame(spriteFrame);
         tempLine.setPosition(this.size.width/2,this.size.height/2)
 
 //        this.addChild(tempLine);

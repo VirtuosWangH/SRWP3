@@ -8,16 +8,16 @@ var TestBlendFunction = cc.Layer.extend({
         this._super();
 
         this.size = cc.director.getWinSize();
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(res.textureLine01_plist);
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(res.textureAssets01_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.textureLine01_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.textureAssets01_plist);
 
         //1 create renderTexture
         var renderTexture = cc.RenderTexture.create(this.size.width,this.size.height);
 
         //2 create mask and target sprite
-        var mask = cc.LayerColor.create(cc.c4b(225,255,255,255),200,200);
+        var mask = cc.LayerColor.create(cc.color(225,255,255,255),200,200);
         mask.setPosition(this.size.width/2,this.size.height/2);
-        var tempLine = cc.LayerColor.create(cc.c4b(0,255,255,255),this.size.width,this.size.height);
+        var tempLine = cc.LayerColor.create(cc.color(0,255,255,255),this.size.width,this.size.height);
 //        var tempLine = cc.Sprite.createWithSpriteFrameName("winline-002.png");
 //        tempLine.setPosition(this.size.width/2,300);
 

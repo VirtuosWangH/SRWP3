@@ -88,7 +88,7 @@ var BetLineSelectorLayer = cc.Layer.extend({
     onTouchBegan: function (touch, event) {
         var target = event.getCurrentTarget();
         var isMove = target.containTouchLocationSlider(touch,target);
-        cc.log("---isMove="+isMove);
+//        cc.log("---isMove="+isMove);
         if (isMove && target.isAvailableToMove) {
             return true;
         } else {
@@ -96,7 +96,7 @@ var BetLineSelectorLayer = cc.Layer.extend({
         }
     },
     onTouchMoved: function (touch, event) {
-        cc.log("---move---");
+//        cc.log("---move---");
         var target = event.getCurrentTarget();
         var touchPoint = touch.getLocation();
         var touchY = touchPoint.y;

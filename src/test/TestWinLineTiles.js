@@ -4,18 +4,23 @@
 var TestXML = cc.Layer.extend({
     winLineSpriteBatchNode:null,
     size:null,
+    textureCache:null,
     ctor:function(){
         this._super();
         this.size = cc.director.getWinSize();
-        var colorBg = cc.LayerColor.create(cc.c4b(0,255,255,255),this.size.width,this.size.height);
+        var colorBg = cc.LayerColor.create(cc.color(0,255,255,255),this.size.width,this.size.height);
         this.addChild(colorBg);
 
-        var saxParser = cc.SAXParser.getInstance();
-//        var result = saxParser.parse(res.textureLine01_plist);
+        this.createUI()
+    },
+    preLoadImage:function(){
+        this.textureCache = cc.textureCache;
+        this.textureCache.addImage("res/exported/winLines/tile.png", this.createUI, this);
+    },
+    createUI:function(){
+        var saxParser = new cc.SAXParser();
+//        var result = saxParser.parse("res/exported/line01.plist");
 //        var jsonResult = JSON.stringify(result);
-
-        var tileXml = saxParser.tmxParse("res/exported/winLines/tile.xml");
-        var subTextureList = tileXml.childNodes[0].children;
 
         this.winLineSpriteBatchNode = cc.SpriteBatchNode.create("res/exported/winLines/tile.png", 100);
 //        this.winLineSpriteBatchNode = cc.Sprite.create();
@@ -24,8 +29,9 @@ var TestXML = cc.Layer.extend({
         this.addChild(this.winLineSpriteBatchNode);
         for (var i=1; i<12; i++) {
             var winLineIndex = i>9?i:"0"+i;
-            var winLineName = "res/exported/winLines/winline-0"+winLineIndex+".xml"
-            var winLineXml = saxParser.tmxParse(winLineName);
+            var winLineXmlText = "res/exported/winLines/winline-0"+winLineIndex+".xml";
+            var xmlStr = cc.loader.getRes(winLineXmlText);
+            var winLineXml = saxParser.parse(xmlStr);
             var IndexLixt = winLineXml.childNodes[0].children;
             var tileNum = IndexLixt.length;
 
@@ -47,22 +53,22 @@ var TestXML = cc.Layer.extend({
         cc.log("----------finished-----------")
     },
     createWinLineTileSprite:function(tileIdx){
-        var img =cc.TextureCache.getInstance().addImage("res/exported/winLines/tile.png");
-        var tileSprite = new cc.Sprite();
-
-        var saxParser = cc.SAXParser.getInstance();
-        var winLineName = "res/exported/winLines/tile.xml";
-        var winLineXml = saxParser.tmxParse(winLineName);
+        var img =cc.textureCache.addImage("res/exported/winLines/tile.png");
+        var saxParser = new cc.SAXParser();
+        var xmlStr = cc.loader.getRes("res/exported/winLines/tile.xml");
+        var winLineXml = saxParser.parse(xmlStr);
         var tileList = winLineXml.childNodes[0].children;
         var tileNum = tileList.length;
         for (var i=0; i<tileNum; i++) {
             var tileAttributes = tileList[i].attributes;
-            var tileName = tileAttributes.name.value
+            var tileName = tileAttributes.name.value;
             if(tileIdx == tileName){
-                var subTextureX = tileAttributes.x.value;
-                var subTextureY = tileAttributes.y.value;
-                var subTextureW = tileAttributes.width.value;
-                var subTextureH = tileAttributes.height.value;
+                var tileSprite = new cc.Sprite();
+                var subTextureX = Number(tileAttributes.x.value);
+                var subTextureY = Number(tileAttributes.y.value);
+                var subTextureW = Number(tileAttributes.width.value);
+                var subTextureH = Number(tileAttributes.height.value);
+
                 tileSprite.initWithTexture(img,cc.rect(subTextureX,subTextureY,subTextureW,subTextureH));
 
                 return tileSprite;

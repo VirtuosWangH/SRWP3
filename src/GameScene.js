@@ -16,8 +16,8 @@ var GameScene = cc.Scene.extend({
     },
     onEnter:function(){
         this._super();
-        this.initByMe();
-//        this.initTest();
+//        this.initByMe();
+        this.initTest();
     },
     initByMe:function () {
         var size = cc.director.getWinSize();
@@ -64,13 +64,13 @@ var GameScene = cc.Scene.extend({
 //        var lineClipping = new TestLineClipping();
 //        this.addChild(lineClipping);
 
-//        var testXmlLayer = new TestXML();
-//        testXmlLayer.setAnchorPoint(0,0);
-//        testXmlLayer.setPosition(0,0);
-//        this.addChild(testXmlLayer);
+        var testXmlLayer = new TestXML();
+        testXmlLayer.setAnchorPoint(0,0);
+        testXmlLayer.setPosition(0,0);
+        this.addChild(testXmlLayer);
 
-        var testBlend = new TestBlendFunction();
-        this.addChild(testBlend);
+//        var testBlend = new TestBlendFunction();
+//        this.addChild(testBlend);
     },
     startSpin:function(){
         this.symbolLayer.setVisible(true);
