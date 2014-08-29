@@ -100,13 +100,16 @@ var SymbolNewLayer = cc.Layer.extend({
     stopSymbolIndex:-1,
     update:function (dt) {
         this.startAccumulateTime += dt;
-        if(this.startAccumulateTime<0.1){
+        if(this.startAccumulateTime<0.6){
+            cc.log("this.startAccumulateTime="+this.startAccumulateTime)
+        }
+        if(this.startAccumulateTime<0.2){
             this.velocityAry[0] = this.defaultVelocity;
-        }else if(this.startAccumulateTime<0.2){
-            this.velocityAry[1] = this.defaultVelocity;
         }else if(this.startAccumulateTime<0.3){
-            this.velocityAry[2] = this.defaultVelocity;
+            this.velocityAry[1] = this.defaultVelocity;
         }else if(this.startAccumulateTime<0.4){
+            this.velocityAry[2] = this.defaultVelocity;
+        }else if(this.startAccumulateTime<0.5){
             this.velocityAry[3] = this.defaultVelocity;
         }else{
             this.velocityAry[4] = this.defaultVelocity;
