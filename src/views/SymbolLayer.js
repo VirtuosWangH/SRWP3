@@ -78,20 +78,20 @@ var SymbolLayer = cc.Layer.extend({
             this.rollDown = false;
             for (var i = 0; i<this.reelNum; i++) {
                 for (var j = 0; j < this.symbolNum; j++) {
-                    var moveAnim = cc.MoveBy.create(0.6, cc.p(0, -121));
-                    var easeMove = cc.EaseBackIn.create(moveAnim);
-                    var onComplete = cc.CallFunc.create(this.smoothRoll,this,cc.p(i,j));
-                    var delay = cc.DelayTime.create(0.3*i);
+                    var moveAnim = cc.moveBy(0.6, cc.p(0, -121));
+                    var easeMove = moveAnim.easing(cc.easeBackIn());
+                    var onComplete = cc.callFunc(this.smoothRoll,this,cc.p(i,j));
+                    var delay = cc.delayTime(0.3*i);
                     var tempSymbol = this.symbolGrad[i][j];
-                    tempSymbol.runAction(cc.Sequence.create(delay,easeMove, onComplete));
+                    tempSymbol.runAction(cc.sequence(delay,easeMove, onComplete));
                 }
             }
         }
     },
     smoothRoll:function(e,point){
-        var moveAnim = cc.MoveBy.create(0.1, cc.p(0, -121));
-        var repeat = cc.Repeat.create(moveAnim,6*2);
-        var onComplete = cc.CallFunc.create(this.finishRoll,this,point);
+        var moveAnim = cc.moveBy(0.1, cc.p(0, -121));
+        var repeat = cc.repeat(moveAnim,6*2);
+        var onComplete = cc.callFunc(this.finishRoll,this,point);
         var tempSymbol = this.symbolGrad[point.x][point.y];
         tempSymbol.runAction(cc.Sequence.create(repeat, onComplete));
 
@@ -102,18 +102,19 @@ var SymbolLayer = cc.Layer.extend({
     finishRoll:function(e,point){
         this.rollDown = true;
 
-        var moveAnim = cc.MoveBy.create(0.1, cc.p(0, -121));
-        var repeat = cc.Repeat.create(moveAnim,6);
-        var onComplete = cc.CallFunc.create(this.positionWell,this,point);
+        var moveAnim = cc.moveBy(0.1, cc.p(0, -121));
+        var repeat = cc.repeat(moveAnim,6);
+        var onComplete = cc.callFunc(this.positionWell,this,point);
         var tempSymbol = this.symbolGrad[point.x][point.y];
-        tempSymbol.runAction(cc.Sequence.create(repeat,onComplete));
+        tempSymbol.runAction(cc.sequence(repeat,onComplete));
     },
     positionWell:function(e,point){
-        var moveAnim = cc.MoveTo.create(0.3, cc.p(point.x*165, point.y*121));
-        var easeMove = cc.EaseBackOut.create(moveAnim);
-        var onComplete = cc.CallFunc.create(this.showWin,this,point);
+        cc.log(point.x+"----"+point.y);
+        var moveAnim = cc.moveTo(0.3, cc.p(point.x*165, point.y*121));
+        var easeMove = moveAnim.easing(cc.easeBackOut());
+        var onComplete = cc.callFunc(this.showWin,this,point);
         var tempSymbol = this.symbolGrad[point.x][point.y];
-        tempSymbol.runAction(cc.Sequence.create(easeMove, onComplete));
+        tempSymbol.runAction(cc.sequence(easeMove, onComplete));
     },
     showWin:function(e,point){
 //        cc.log(point.x,point.y);

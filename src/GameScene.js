@@ -16,20 +16,17 @@ var GameScene = cc.Scene.extend({
     },
     onEnter:function(){
         this._super();
-//        this.initByMe();
-        this.initTest();
+        this.initByMe();
+//        this.initTest();
     },
     initByMe:function () {
         var size = cc.director.getWinSize();
-
         this.addChild(new BGLayer());
-        this.symbolLayer = SymbolLayer.create();
+
+//        this.symbolLayer = SymbolLayer.create();
+        this.symbolLayer = new SymbolNewLayer();
         this.symbolLayer.curScene = this;
         this.addChild(this.symbolLayer);
-
-//        this.symbolLayer = new SymbolNewLayer();
-//        this.symbolLayer.curScene = this;
-//        this.addChild(this.symbolLayer);
 
         this.addChild(new FGLayer());
 
