@@ -10,6 +10,7 @@ var TitleLayer = cc.Layer.extend({
     hideY:100,
     currentTitle:null,
     targetTitle:null,
+    isEasing:false,
     ctor: function () {
         this._super();
         cc.spriteFrameCache.addSpriteFrames(res.textureTablet_plist,res.textureTablet_png);
@@ -45,34 +46,38 @@ var TitleLayer = cc.Layer.extend({
         }
     },
     switchTitle:function(titleName){
-        switch (titleName) {
-            case "bigWin" :
-                this.targetTitle = this.bigWinTitle;
-                break;
-            case "fiveOfAKind" :
-                this.targetTitle = this.fiveWinTitle;
-                break;
-            case "wildMatch" :
-                this.targetTitle = this.wildMatchTitle;
-                break;
-            default :
-                this.targetTitle = this.normalTitle;
-                break;
-        }
-        if(this.currentTitle != this.targetTitle){
-            var hidAnim = cc.MoveTo.create(0.3, cc.p(0, this.hideY));
-            var easeMove = cc.EaseSineIn.create(hidAnim);
-            var onComplete = cc.CallFunc.create(this.showTargetTitle,this);
-            this.currentTitle.runAction(cc.Sequence.create(easeMove, onComplete));
+        if(!this.isEasing){
+            switch (titleName) {
+                case "bigWin" :
+                    this.targetTitle = this.bigWinTitle;
+                    break;
+                case "fiveOfAKind" :
+                    this.targetTitle = this.fiveWinTitle;
+                    break;
+                case "wildMatch" :
+                    this.targetTitle = this.wildMatchTitle;
+                    break;
+                default :
+                    this.targetTitle = this.normalTitle;
+                    break;
+            }
+            if(this.currentTitle != this.targetTitle){
+                var hidAnim = cc.moveTo(0.3, cc.p(0, this.hideY));
+                var easeMove = hidAnim.easing(cc.easeSineIn());
+                var onComplete = cc.callFunc(this.showTargetTitle,this);
+                this.currentTitle.runAction(cc.sequence(easeMove, onComplete));
+                this.isEasing = true;
+            }
         }
     },
     showTargetTitle:function(){
-        var showAnim = cc.MoveTo.create(0.5, cc.p(0, 0));
-        var easeMove = cc.EaseSineOut.create(showAnim);
-        var onComplete = cc.CallFunc.create(this.completeSwitchTitle,this);
+        var showAnim = cc.moveTo(0.5, cc.p(0, 0));
+        var easeMove = showAnim.easing(cc.easeSineOut());
+        var onComplete = cc.callFunc(this.completeSwitchTitle,this);
         this.targetTitle.runAction(cc.Sequence.create(easeMove, onComplete));
     },
     completeSwitchTitle:function(){
         this.currentTitle = this.targetTitle;
+        this.isEasing = false;
     }
 })
