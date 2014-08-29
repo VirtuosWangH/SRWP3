@@ -72,4 +72,21 @@ var res = {
 var g_resources = [];
 for (var i in res) {
     g_resources.push(res[i]);
-}
+};
+
+
+var sounds = {
+    gameStart:"res/sounds/game_start.mp3",
+    click:"res/sounds/click.mp3",
+    spin0:"res/sounds/spin_0.mp3",
+    spin1:"res/sounds/spin_1.mp3",
+    spin2:"res/sounds/spin_2.mp3",
+    spin3:"res/sounds/spin_3.mp3",
+    spin4:"res/sounds/spin_4.mp3",
+    spin5:"res/sounds/spin_5.mp3",
+    win0:"res/sounds/win_0.mp3"
+};
+var g_cocosdeshion = [
+    "res/sounds/game_start.mp3",
+    "res/sounds/click.mp3"
+ ];

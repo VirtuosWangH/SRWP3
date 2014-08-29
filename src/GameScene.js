@@ -11,6 +11,7 @@ var GameScene = cc.Scene.extend({
     winFrameLayer:null,
     betLineSelectorLayer:null,
     titleLayer:null,
+
     ctor:function(){
         this._super();
         this.tagName = "gameScene";
@@ -57,6 +58,10 @@ var GameScene = cc.Scene.extend({
 
         this.payTableLayer = new PayTableLayer();
         this.addChild(this.payTableLayer);
+
+        this.soundManger = new SoundManger();
+        this.soundManger.init();
+        this.soundManger.playMusic(sounds.gameStart, false);
     },
     initTest:function(){
 //        var lineClipping = new TestLineClipping();
@@ -76,13 +81,17 @@ var GameScene = cc.Scene.extend({
         this.symbolLayer.startRoll();
         this.winLinesLayer.setVisible(false);
         this.winFrameLayer.removeFrames();
+
+        this.soundManger.playEffect(sounds.click, false);
+        this.soundManger.playEffect("spin", false);
     },
     showWins:function(isShow){
         if(isShow){
             this.isAvailableSpin = true;
             this.winLinesLayer.showWinLine(1);
             this.winFrameLayer.showWinFrame(2,[[],[1,1,1,1,1],[],[]]);
-            this.titleLayer.switchTitle("fiveOfAKind")
+            this.titleLayer.switchTitle("fiveOfAKind");
+            this.soundManger.playMusic(sounds.win0, false);
         }else{
             this.titleLayer.switchTitle("normal");
             this.symbolLayer.setVisible(true);
@@ -92,17 +101,23 @@ var GameScene = cc.Scene.extend({
         this.winningLayer.showWins(isShow);
     },
     showPayTable:function(isShow){
-        this.payTableLayer.show(isShow)
+        this.payTableLayer.show(isShow);
+
+        this.soundManger.playEffect(sounds.click, false);
     },
     betLineChange:function(num){
         this.winLinesLayer.setVisible(true);
         this.winLinesLayer.changeBetLine(num);
         this.betLineSelectorLayer.updateBetLine(num);
         this.winFrameLayer.removeFrames();
+
+        this.soundManger.playEffect(sounds.click, false);
     },
     addOneBetLine:function(){
         this.winLinesLayer.setVisible(true);
         this.winLinesLayer.addBetLine();
         this.winFrameLayer.removeFrames();
+
+        this.soundManger.playEffect(sounds.click, false);
     }
 })
