@@ -4,6 +4,7 @@
 var ControlBarLayer = cc.Layer.extend({
     curScene:null,
     spinBtn:null,
+    betMaxItem:null,
     isShowPayTable:false,
     ctor:function(){
         this._super();
@@ -30,7 +31,7 @@ var ControlBarLayer = cc.Layer.extend({
         var betMaxNormal = cc.Sprite.createWithSpriteFrame(spriteFrame);
         var betMaxSelect = cc.Sprite.createWithSpriteFrame(spriteFrame);
         betMaxSelect.setScale(0.9,0.9);
-        var betMaxItem = cc.MenuItemSprite.create(betMaxNormal,betMaxSelect,this.onBetMax,this);
+        this.betMaxItem = cc.MenuItemSprite.create(betMaxNormal,betMaxSelect,this.onBetMax,this);
 
         spriteFrame = cc.spriteFrameCache.getSpriteFrame("BetOneBtn.png");
         var betOneNormal = cc.Sprite.createWithSpriteFrame(spriteFrame);
@@ -38,7 +39,7 @@ var ControlBarLayer = cc.Layer.extend({
         betOneSelect.setScale(0.9,0.9)
         var betOneItem = cc.MenuItemSprite.create(betOneNormal,betOneSelect,this.onBetOne,this);
 
-        var menu = cc.Menu.create(payTableItem,betOneItem,betMaxItem,this.spinBtn);
+        var menu = cc.Menu.create(payTableItem,betOneItem,this.betMaxItem,this.spinBtn);
         menu.alignItemsHorizontallyWithPadding(10);
 
         menu.setPosition(bg.getPositionX(),bg.getPositionY());
@@ -54,15 +55,24 @@ var ControlBarLayer = cc.Layer.extend({
         }
     },
     onPaytable:function (pSender) {
-        this.isShowPayTable = !this.isShowPayTable;
-        this.curScene.showPayTable(this.isShowPayTable);
+        if(this.curScene.isAvailableSpin){
+            this.isShowPayTable = !this.isShowPayTable;
+            this.curScene.showPayTable(this.isShowPayTable);
+        }
     },
+    alreadyMax:false,
     onBetMax:function(){
-        this.curScene.showWins(false);
-        this.curScene.betLineChange(50);
+        if(this.curScene.isAvailableSpin && !this.alreadyMax){
+            this.curScene.showWins(false);
+            this.curScene.betLineChange(50);
+            this.alreadyMax = true;
+        }
     },
     onBetOne:function(){
-        this.curScene.showWins(false);
-        this.curScene.addOneBetLine();
+        if(this.curScene.isAvailableSpin){
+            this.curScene.showWins(false);
+            this.curScene.addOneBetLine();
+            this.alreadyMax = false;
+        }
     }
 })
