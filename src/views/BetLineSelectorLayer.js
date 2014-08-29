@@ -39,7 +39,7 @@ var BetLineSelectorLayer = cc.Layer.extend({
         this.leftSlider.setPosition(this.startX,this.endY);
         this.addChild(this.leftSlider);
 
-        var numTF = cc.LabelTTF.create("50",null,30,cc.size(30,30), cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
+        var numTF = cc.LabelTTF.create("50","Arial",26,cc.size(30,30), cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
         numTF.setPosition(30,40);
         numTF.setName("LNumber");
         this.leftSlider.addChild(numTF);
@@ -49,7 +49,7 @@ var BetLineSelectorLayer = cc.Layer.extend({
         this.rightSlider.setPosition(size.width-this.startX,this.endY);
         this.addChild(this.rightSlider);
 
-        var numRTF = cc.LabelTTF.create("50",null,30,cc.size(30,30), cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
+        var numRTF = cc.LabelTTF.create("50","Arial",26,cc.size(30,30), cc.TEXT_ALIGNMENT_CENTER,cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
         numRTF.setPosition(30,40);
         numRTF.setName("RNumber");
         this.rightSlider.addChild(numRTF);

@@ -2,6 +2,7 @@
  * Created by wanghe on 2014/8/14.
  */
 var GameScene = cc.Scene.extend({
+    isAvailableSpin:true,
     symbolLayer:null,
     controlBar:null,
     winningLayer:null,
@@ -70,6 +71,7 @@ var GameScene = cc.Scene.extend({
 //        this.addChild(testBlend);
     },
     startSpin:function(){
+        this.isAvailableSpin = false;
         this.symbolLayer.setVisible(true);
         this.symbolLayer.startRoll();
         this.winLinesLayer.setVisible(false);
@@ -77,6 +79,7 @@ var GameScene = cc.Scene.extend({
     },
     showWins:function(isShow){
         if(isShow){
+            this.isAvailableSpin = true;
             this.winLinesLayer.showWinLine(1);
             this.winFrameLayer.showWinFrame(2,[[],[1,1,1,1,1],[],[]]);
             this.titleLayer.switchTitle("fiveOfAKind")

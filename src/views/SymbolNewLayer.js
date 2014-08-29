@@ -140,7 +140,19 @@ var SymbolNewLayer = cc.Layer.extend({
                             this.stopSymbolIndex = j;
                         }
                         if(j == this.stopSymbolIndex){
-                            this.moveToDestination(i,offset);
+                            if(i==0){
+                                this.moveToDestination(i,offset);
+                            }else{
+                                var flag = true;
+                                for(var k = 0; k<i; k++){
+                                    if(this.reelSpriteReadyAry[k]){
+                                        flag = false;
+                                    }
+                                }
+                                if(flag){
+                                    this.moveToDestination(i,offset);
+                                }
+                            }
                         }
                         if(!this.reelSpriteReadyAry[i]){
                             tempBlurSymbol.y += 0;
@@ -184,7 +196,7 @@ var SymbolNewLayer = cc.Layer.extend({
     moveToDestination:function(reelIndex,offset){
         var isReady = this.reelSpriteReadyAry[reelIndex];
         if(isReady){
-//            cc.log("---------="+reelIndex)
+            cc.log("---------="+reelIndex)
             this.reelSpriteReadyAry[reelIndex] = false;
             var reelSprite = this.reelSpriteAry[reelIndex];
             reelSprite.y = 121*6 - offset;

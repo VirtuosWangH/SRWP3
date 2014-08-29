@@ -48,8 +48,10 @@ var ControlBarLayer = cc.Layer.extend({
         this._super();
     },
     onSpin:function (pSender) {
-        this.curScene.startSpin();
-        this.curScene.showWins(false);
+        if(this.curScene.isAvailableSpin){
+            this.curScene.startSpin();
+            this.curScene.showWins(false);
+        }
     },
     onPaytable:function (pSender) {
         this.isShowPayTable = !this.isShowPayTable;
