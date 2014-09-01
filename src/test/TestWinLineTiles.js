@@ -4,13 +4,13 @@
 var TestXML = cc.Layer.extend({
     winLineSpriteBatchNode:null,
     size:null,
-    saxParser:null,
+//    saxParser:null,
     ctor:function(){
         this._super();
         this.size = cc.director.getWinSize();
         var colorBg = cc.LayerColor.create(cc.color(0,255,255,255),this.size.width,this.size.height);
         this.addChild(colorBg);
-        this.saxParser = new cc.SAXParser();
+//        this.saxParser = new cc.SAXParser();
         this.createUI()
     },
     preLoadImage:function(){
@@ -18,8 +18,10 @@ var TestXML = cc.Layer.extend({
         this.textureCache.addImage("res/exported/winLines/tile.png", this.createUI, this);
     },
     createUI:function(){
-//        var result = saxParser.parse("res/exported/line01.plist");
-//        var jsonResult = JSON.stringify(result);
+//        var result = this.saxParser.parse("res/exported/line01.plist");
+//        var jsonObj = cc.loader.getRes("res/exported/winLines/tile.json");
+//        var name = jsonObj.TextureAtlas.SubTexture[0].name
+//        var jsonResult = JSON.parse(jsonTxt);
 
         this.winLineSpriteBatchNode = cc.SpriteBatchNode.create("res/exported/winLines/tile.png", 100);
 //        this.winLineSpriteBatchNode = cc.Sprite.create();
@@ -56,6 +58,10 @@ var TestXML = cc.Layer.extend({
         var xmlStr = cc.loader.getRes("res/exported/winLines/tile.xml");
         var winLineXml = this.saxParser.parse(xmlStr);
         var tileList = winLineXml.childNodes[0].children;
+
+//        var jsonObj = cc.loader.getRes("res/exported/winLines/tile.json");
+//        var tileList = winLineXml.childNodes[0].children;
+
         var tileNum = tileList.length;
         for (var i=0; i<tileNum; i++) {
             var tileAttributes = tileList[i].attributes;

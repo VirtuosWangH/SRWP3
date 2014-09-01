@@ -17,6 +17,7 @@ var res = {
 
     textureTile_png : "res/exported/winLines/tile.png",
     textureTile_xml : "res/exported/winLines/tile.xml",
+    textureTile_json : "res/exported/winLines/tile.json",
     texturewinline001_xml : "res/exported/winLines/winline-001.xml",
     texturewinline002_xml : "res/exported/winLines/winline-002.xml",
     texturewinline003_xml : "res/exported/winLines/winline-003.xml",

@@ -101,7 +101,7 @@ var SymbolNewLayer = cc.Layer.extend({
     update:function (dt) {
         this.startAccumulateTime += dt;
         if(this.startAccumulateTime<0.6){
-            cc.log("this.startAccumulateTime="+this.startAccumulateTime)
+//            cc.log("this.startAccumulateTime="+this.startAccumulateTime)
         }
         if(this.startAccumulateTime<0.2){
             this.velocityAry[0] = this.defaultVelocity;
