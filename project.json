@@ -32,6 +32,7 @@
         "src/test/TestLineClipping.js",
         "src/test/TestWinLineTiles.js",
         "src/test/TestBlendFunction.js",
+        "src/test/TestRunningMode.js",
 
         "src/SoundManger.js"
     ]
