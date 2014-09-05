@@ -2,5 +2,7 @@ frameworks
 res
 runtime
 tools
+publish
 .idea
 workspace.xml
+
