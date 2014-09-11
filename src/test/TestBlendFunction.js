@@ -15,15 +15,15 @@ var TestBlendFunction = cc.Layer.extend({
         var renderTexture = cc.RenderTexture.create(this.size.width,this.size.height);
 
         //2 create mask and target sprite
-        var mask = cc.LayerColor.create(cc.color(225,255,255,255),200,200);
+        var mask = cc.LayerColor.create(cc.color(255,255,255,255),200,200);
         mask.setPosition(this.size.width/2,this.size.height/2);
-        var tempLine = cc.LayerColor.create(cc.color(0,255,255,255),this.size.width,this.size.height);
-//        var tempLine = cc.Sprite.createWithSpriteFrameName("winline-002.png");
-//        tempLine.setPosition(this.size.width/2,300);
+//        var tempLine = cc.LayerColor.create(cc.color(0,255,255,255),this.size.width,this.size.height);
+        var tempLine = cc.Sprite.create("#winline-002.png");
+        tempLine.setPosition(this.size.width/2,300);
 
         //3 set blendFunc
-        mask.setBlendFunc(gl.ONE,gl.ZERO);
-        tempLine.setBlendFunc(0x304,gl.ZERO);//cocos3.0 will support cc.DST_ALPHA = 0x304;
+        mask.setBlendFunc(gl.SRC_ALPHA,gl.ZERO);
+        tempLine.setBlendFunc(gl.DST_ALPHA,gl.ZERO);//cocos3.0 will support gl.DST_ALPHA = 0x304;
 
         //4 render
         renderTexture.begin();

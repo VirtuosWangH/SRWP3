@@ -18,8 +18,8 @@ var GameScene = cc.Scene.extend({
     },
     onEnter:function(){
         this._super();
-//        this.initByMe();
-        this.initTest();
+        this.initByMe();
+//        this.initTest();
     },
     initByMe:function () {
         var size = cc.director.getWinSize();
@@ -75,8 +75,16 @@ var GameScene = cc.Scene.extend({
 //        var testBlend = new TestBlendFunction();
 //        this.addChild(testBlend);
 
-          var runningMode = new TestRunningMode();
-          this.addChild(runningMode);
+//        var runningMode = new TestRunningMode();
+//        this.addChild(runningMode);
+
+        var testEventManager = new TestEventManager();
+        this.addChild(testEventManager);
+
+        cc.eventManager.addCustomListener(TestEvent,this.eventListener);
+    },
+    eventListener:function(){
+        cc.log("======")
     },
     startSpin:function(){
         this.isAvailableSpin = false;
