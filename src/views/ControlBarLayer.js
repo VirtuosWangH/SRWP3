@@ -9,7 +9,6 @@ var ControlBarLayer = cc.Layer.extend({
     ctor:function(){
         this._super();
         this.tagName = "controlBar"
-        var size = cc.director.getWinSize();
 
         cc.spriteFrameCache.addSpriteFrames(res.textureControl_plist,res.textureControl_png);
         var spriteFrame = cc.spriteFrameCache.getSpriteFrame("GamecontrolsBg.png");
@@ -41,8 +40,8 @@ var ControlBarLayer = cc.Layer.extend({
 
         var menu = cc.Menu.create(payTableItem,betOneItem,this.betMaxItem,this.spinBtn);
         menu.alignItemsHorizontallyWithPadding(10);
-
         menu.setPosition(bg.getPositionX(),bg.getPositionY());
+        this.setContentSize(cc.size(bg.width,bg.height));
         this.addChild(menu, 1);
     },
     onEnter:function(){

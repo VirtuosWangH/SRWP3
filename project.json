@@ -34,6 +34,7 @@
         "src/test/TestBlendFunction.js",
         "src/test/TestRunningMode.js",
         "src/test/TestEventManager.js",
+        "src/test/TestResolution.js",
 
         "src/SoundManger.js"
     ]
