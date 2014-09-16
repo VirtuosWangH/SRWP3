@@ -75,8 +75,8 @@ var GameScene = cc.Scene.extend({
 //        var testBlend = new TestBlendFunction();
 //        this.addChild(testBlend);
 
-//        var runningMode = new TestRunningMode();
-//        this.addChild(runningMode);
+        var runningMode = new TestRunningMode();
+        this.addChild(runningMode);
 
 //        var testEventManager = new TestEventManager();
 //        this.addChild(testEventManager);
@@ -87,6 +87,7 @@ var GameScene = cc.Scene.extend({
     },
     eventListener:function(){
         cc.log("======")
+
     },
     startSpin:function(){
         this.isAvailableSpin = false;
