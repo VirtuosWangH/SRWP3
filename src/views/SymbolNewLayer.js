@@ -130,35 +130,18 @@ var SymbolNewLayer = cc.Layer.extend({
     },
     startRoll:function(){
         if(this.rollStopedFlag){
-            this.startAccumulateTime = 0;
             this.speedAry = [this.defaultSpeed,this.defaultSpeed,this.defaultSpeed,this.defaultSpeed,this.defaultSpeed];
             this.rollStopedFlag = false;
+            this.delayIndex = 0;
+            this.schedule(this.delayRollingSetting,0.2,4,0.1);
             this.scheduleUpdate();
             var onComplete = cc.callFunc(this.stopRoll,this);
             var delay = cc.delayTime(3);
             this.runAction(cc.sequence(delay,onComplete));
         }
     },
-    startAccumulateTime:0,
     stopSymbolIndex:-1,
     update:function (dt) {
-        this.startAccumulateTime += dt;
-
-        if(this.startAccumulateTime<0.4){
-            cc.log("this.startAccumulateTime="+this.startAccumulateTime);
-        }
-        if(this.startAccumulateTime<0.3){
-            this.velocityAry[0] = this.defaultVelocity;
-        }else if(this.startAccumulateTime<0.4){
-            this.velocityAry[1] = this.defaultVelocity;
-        }else if(this.startAccumulateTime<0.5){
-            this.velocityAry[2] = this.defaultVelocity;
-        }else if(this.startAccumulateTime<0.6){
-            this.velocityAry[3] = this.defaultVelocity;
-        }else{
-            this.velocityAry[4] = this.defaultVelocity;
-        }
-
         var tempBlurSymbol;
         for (var i = 0; i<this.reelNum; i++) {
             var reelSprite =  this.reelSpriteAry[i];
@@ -219,6 +202,12 @@ var SymbolNewLayer = cc.Layer.extend({
 
         }
     },
+    delayIndex:0,
+    delayRollingSetting:function(){
+//        cc.log("-------------------")
+        this.velocityAry[this.delayIndex] = this.defaultVelocity;
+        this.delayIndex +=1;
+    },
     prepareResult:function(){
 //        cc.log("prepareResult-----")
         this.moveReelSpriteFlag = false;
@@ -276,7 +265,6 @@ var SymbolNewLayer = cc.Layer.extend({
     resetInfo:function(){
         this.unscheduleUpdate();
         this.reelSpriteReadyAry = [true,true,true,true,true];
-        this.startAccumulateTime = 0;
         this.stopSymbolIndex = -1;
         this.moveReelSpriteFlag = true;
         this.rollStopedFlag = true;
