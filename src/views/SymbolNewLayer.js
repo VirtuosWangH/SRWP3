@@ -1,6 +1,43 @@
 /**
  * Created by wanghe on 2014/8/20.
  */
+var symbolResults = [
+    [[1,2,3,4,5],
+    [1,2,3,4,5],
+    [5,4,3,2,1],
+    [7,7,7,7,7],
+    [1,2,3,4,5],
+    [1,2,3,4,5]],
+
+    [[1,2,3,4,5],
+    [1,2,3,4,5],
+    [5,4,3,2,1],
+    [1,1,1,1,1],
+    [1,2,3,4,5],
+    [1,2,3,4,5]],
+
+    [[1,2,3,4,5],
+    [1,2,3,4,5],
+    [2,2,2,2,1],
+    [5,4,3,2,1],
+    [1,2,3,4,5],
+    [1,2,3,4,5]],
+
+    [[1,2,3,4,5],
+    [1,2,3,4,5],
+    [5,4,3,2,1],
+    [5,4,3,2,1],
+    [1,1,1,4,5],
+    [1,2,3,4,5]],
+
+    [[1,2,3,4,5],
+    [1,2,3,4,5],
+    [5,4,3,2,1],
+    [5,4,3,2,1],
+    [1,2,3,4,5],
+    [1,2,3,4,5]]
+]
+var resultIndex = 0;
 var SymbolNewLayer = cc.Layer.extend({
     curScene: null,
     columnGap:23,
@@ -14,14 +51,6 @@ var SymbolNewLayer = cc.Layer.extend({
     maxSpeed:-20,
     defaultVelocity:-0.2,
     velocityAry:[0,0,0,0,0],
-
-    symbolResult:[[1,2,3,4,5],
-        [1,2,3,4,5],
-        [5,4,3,2,1],
-        [7,7,7,7,7],
-        [1,2,3,4,5],
-        [1,2,3,4,5]],
-
     reelSpriteAry:null,
     symbolGrad:null,
     blurSymbolGrad:null,
@@ -178,12 +207,12 @@ var SymbolNewLayer = cc.Layer.extend({
     prepareResult:function(){
 //        cc.log("prepareResult-----")
         this.moveReelSpriteFlag = false;
-
+        resultIndex = 0;
         var offsetY = this.symbolHeight+this.symbolGap;
         for (var i = 0; i<this.reelNum; i++) {
             for (var j = 0; j < this.symbolNum; j++) {
                 var symbol =  this.symbolGrad[i][j];
-                var symbolIndex = this.symbolResult[j][i];
+                var symbolIndex = symbolResults[resultIndex][j][i];
                 var frame = cc.spriteFrameCache.getSpriteFrame("Symbol_0"+symbolIndex+".png");
                 symbol.setSpriteFrame(frame);
             }

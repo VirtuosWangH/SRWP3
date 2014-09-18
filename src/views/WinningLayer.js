@@ -18,12 +18,7 @@ var WinningLayer = cc.Layer.extend({
     symbolGap:5,
     columnWidth:142,
     symbolHeight:116,
-    winSymbols:[
-        [1,2,3,4,5],
-        [5,4,3,2,1],
-        [7,7,7,7,7],
-        [1,2,3,4,5]
-    ],
+    winLines:null,
     animationSymbols:[],
     ctor: function () {
         this._super();
@@ -34,12 +29,25 @@ var WinningLayer = cc.Layer.extend({
     },
     init:function(){
         this._super();
+        var winSymbols1 = [
+            [1,2,3,4,5],
+            [5,4,3,2,1],
+            [7,7,7,7,7],
+            [1,2,3,4,5]
+        ];
+        var winSymbols2 = [
+            [1,2,3,4,5],
+            [2,2,2,2,2],
+            [5,4,3,2,1],
+            [1,2,3,4,5]
+        ];
+        this.winLines = [winSymbols1,winSymbols2];
         this.symbolGrad = [];
-
-        for (var i = 0; i<this.winSymbols.length; i++) {
+        var winSymbols = this.winLines[1]
+        for (var i = 0; i<winSymbols.length; i++) {
             var symbolReel = [];
             for (var j = 0; j<5; j++) {
-                var index = this.winSymbols[i][j];
+                var index = winSymbols[i][j];
                 var tempSprite;
                 if(index!==7){
                     var spriteFrame = cc.spriteFrameCache.getSpriteFrame("Symbol_0"+index+".png")
@@ -58,10 +66,11 @@ var WinningLayer = cc.Layer.extend({
     },
     showWins:function(isShow){
         if(isShow){
+            var winSymbols = this.winLines[0];
             this.setVisible(true);
-            for (var i = 0; i<this.winSymbols.length; i++) {
+            for (var i = 0; i<winSymbols.length; i++) {
                 for (var j = 0; j<5; j++) {
-                    var index = this.winSymbols[i][j];
+                    var index = winSymbols[i][j];
                     if(index == 7){
                         var tempSprite = this.symbolGrad[i][j];
                         var animFrames = [];
