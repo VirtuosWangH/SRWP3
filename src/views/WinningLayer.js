@@ -19,6 +19,7 @@ var WinningLayer = cc.Layer.extend({
     columnWidth:142,
     symbolHeight:116,
     winLines:null,
+    winSymbol:null,
     animationSymbols:[],
     ctor: function () {
         this._super();
@@ -29,27 +30,47 @@ var WinningLayer = cc.Layer.extend({
     },
     init:function(){
         this._super();
-        var winSymbols1 = [
-            [1,2,3,4,5],
-            [5,4,3,2,1],
-            [7,7,7,7,7],
-            [1,2,3,4,5]
-        ];
-        var winSymbols2 = [
-            [1,2,3,4,5],
-            [2,2,2,2,2],
-            [5,4,3,2,1],
-            [1,2,3,4,5]
-        ];
-        this.winLines = [winSymbols1,winSymbols2];
+        this.winLines = [
+            [[1,2,3,4,5],
+             [1,2,3,4,5],
+             [7,7,7,7,7],
+             [1,2,3,4,5]],
+            [[1,2,3,4,5],
+             [1,2,3,4,5],
+             [8,8,8,8,8],
+             [1,2,3,4,5]],
+            [[1,2,3,4,5],
+             [1,2,3,4,5],
+             [9,9,9,9,1],
+             [1,2,3,4,5]],
+            [[1,2,3,4,5],
+             [5,4,3,2,1],
+             [5,4,3,2,1],
+             [1,2,3,4,5]],
+            [[1,2,3,4,5],
+             [7,8,3,2,1],
+             [5,4,9,2,1],
+             [1,2,3,6,5]],
+            [[1,2,3,4,5],
+             [5,8,3,2,7],
+             [5,4,6,2,1],
+             [6,2,3,6,5]],
+            [[1,2,3,4,7],
+             [9,7,3,2,1],
+             [6,4,9,2,1],
+             [1,2,3,6,5]]
+        ]
+        this.winSymbol = [7,8,9,0,0,0,0];
+    },
+    preSetWin:function(){
         this.symbolGrad = [];
-        var winSymbols = this.winLines[1]
+        var winSymbols = this.winLines[resultIndex]
         for (var i = 0; i<winSymbols.length; i++) {
             var symbolReel = [];
             for (var j = 0; j<5; j++) {
                 var index = winSymbols[i][j];
                 var tempSprite;
-                if(index!==7){
+                if(index!==this.winSymbol[resultIndex]){
                     var spriteFrame = cc.spriteFrameCache.getSpriteFrame("Symbol_0"+index+".png")
                     tempSprite = cc.Sprite.createWithSpriteFrame(spriteFrame);
                 }else{
@@ -66,17 +87,30 @@ var WinningLayer = cc.Layer.extend({
     },
     showWins:function(isShow){
         if(isShow){
-            var winSymbols = this.winLines[0];
+            this.preSetWin();
+            var winSymbols = this.winLines[resultIndex];
             this.setVisible(true);
             for (var i = 0; i<winSymbols.length; i++) {
                 for (var j = 0; j<5; j++) {
                     var index = winSymbols[i][j];
-                    if(index == 7){
+                    if(index == this.winSymbol[resultIndex]){
                         var tempSprite = this.symbolGrad[i][j];
                         var animFrames = [];
-                        for(var k = 0; k < 32; k++){
-                            var index = k+1001;
-                            var frameName = "sym-pic"+index+".png";
+                        var preIndex;
+                        var num;
+                        if(index == 7){
+                            preIndex = 1001;
+                            num = 32;
+                        }else if(index == 8){
+                            preIndex = 2001;
+                            num = 31;
+                        }else if(index == 9){
+                            preIndex = 3001;
+                            num = 60;
+                        }
+                        for(var k = 0; k < num; k++){
+                            var symbolIndex = k+preIndex;
+                            var frameName = "sym-pic"+symbolIndex+".png";
                             var frame = cc.spriteFrameCache.getSpriteFrame(frameName);
                             animFrames.push(frame);
                         }
@@ -98,6 +132,15 @@ var WinningLayer = cc.Layer.extend({
         while (this.animationSymbols.length) {
             var animationSymbol = this.animationSymbols.pop();
             animationSymbol.stopAllActions();
+        }
+        if(this.symbolGrad){
+            while (this.symbolGrad.length) {
+                var symbolReel = this.symbolGrad.pop();
+                while(symbolReel.length){
+                    var tempSprite = symbolReel.pop();
+                    tempSprite.removeFromParent();
+                }
+            }
         }
     }
 })

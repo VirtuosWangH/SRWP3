@@ -1,6 +1,7 @@
 /**
  * Created by wanghe on 2014/8/14.
  */
+var resultIndex = 0;
 var GameScene = cc.Scene.extend({
     isAvailableSpin:true,
     symbolLayer:null,
@@ -94,17 +95,28 @@ var GameScene = cc.Scene.extend({
         this.symbolLayer.setVisible(true);
         this.symbolLayer.startRoll();
         this.winLinesLayer.setVisible(false);
+        this.winLinesLayer.resetClipper();
         this.winFrameLayer.removeFrames();
 
         this.soundManger.playEffect(sounds.click, false);
         this.soundManger.playEffect("spin", false);
     },
+    setAvailable:function(){
+        this.isAvailableSpin = true;
+    },
     showWins:function(isShow){
         if(isShow){
             this.isAvailableSpin = true;
             this.winLinesLayer.showWinLine(1);
-            this.winFrameLayer.showWinFrame(2,[[],[1,1,1,1,1],[],[]]);
-            this.titleLayer.switchTitle("fiveOfAKind");
+            var symbolAry;
+            if(resultIndex==2){
+                symbolAry = [[],[1,1,1,1,0],[],[]];
+                this.titleLayer.switchTitle("normal");
+            }else{
+                symbolAry = [[],[1,1,1,1,1],[],[]];
+                this.titleLayer.switchTitle("fiveOfAKind");
+            }
+            this.winFrameLayer.showWinFrame(2,symbolAry);
             this.soundManger.playMusic(sounds.win0, false);
         }else{
             this.titleLayer.switchTitle("normal");

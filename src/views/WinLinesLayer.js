@@ -20,7 +20,7 @@ var WinLinesLayer = cc.Layer.extend({
         cc.spriteFrameCache.addSpriteFrames(res.textureAssets01_plist);
         this.createUI();
 
-        this.winLineClipper = cc.ClippingNode.create();
+        this.winLineClipper = new cc.ClippingNode();
 //        this.winLineClipper.setTag("winLineClipper");
         this.winLineClipper.setContentSize(this.size.width, this.size.height);
         this.winLineClipper.setAnchorPoint(0.5,0.5);
@@ -38,7 +38,7 @@ var WinLinesLayer = cc.Layer.extend({
             var index = i < 10 ? "0" + i : i;
             var winLineName = "winline-0" + index + ".png";
             var spriteFrame = cc.spriteFrameCache.getSpriteFrame(winLineName);
-            var line = cc.Sprite.createWithSpriteFrame(spriteFrame);
+            var line = new cc.Sprite(spriteFrame);
             line.setPosition(this.size.width/2,this.size.height/2)
             this.addChild(line);
             this.linesAry.push(line);
@@ -46,7 +46,7 @@ var WinLinesLayer = cc.Layer.extend({
         for (var j=23; j<40; j++) {
             var winLineName = "winline-0" + j + ".png";
             var spriteFrame = cc.spriteFrameCache.getSpriteFrame(winLineName);
-            var line = cc.Sprite.createWithSpriteFrame(spriteFrame);
+            var line = new cc.Sprite(spriteFrame);
             line.setPosition(this.size.width/2,this.size.height/2)
             this.addChild(line);
             this.linesAry.push(line);
@@ -86,8 +86,15 @@ var WinLinesLayer = cc.Layer.extend({
         this.hideWinLineClipper()
     },
     hideWinLineClipper:function(){
-        if(this.winLineClipper)
-        this.winLineClipper.setVisible(false);
+        if(this.winLineClipper){
+            this.winLineClipper.setVisible(false);
+        }
+    },
+    resetClipper:function(){
+        if(this.winLineClipper){
+            this.winLineClipper.removeAllChildren();
+            this.stencil.removeAllChildren();
+        }
     },
     showWinLine:function(index){
         this.setVisible(true);
@@ -102,7 +109,13 @@ var WinLinesLayer = cc.Layer.extend({
 //            }
         }
 
-        for (var j=0; j<5; j++) {
+        var num;
+        if(resultIndex==2){
+            num = 4
+        }else{
+            num = 5
+        }
+        for (var j=0; j<num; j++) {
             var spriteFrame = cc.spriteFrameCache.getSpriteFrame("symbolMask.png");
             var tempStencil = cc.Sprite.createWithSpriteFrame(spriteFrame);
             tempStencil.setPosition(j*165,0);

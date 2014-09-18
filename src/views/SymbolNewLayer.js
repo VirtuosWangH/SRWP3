@@ -4,30 +4,23 @@
 var symbolResults = [
     [[1,2,3,4,5],
     [1,2,3,4,5],
-    [5,4,3,2,1],
+    [1,2,3,4,5],
     [7,7,7,7,7],
     [1,2,3,4,5],
     [1,2,3,4,5]],
 
     [[1,2,3,4,5],
     [1,2,3,4,5],
-    [5,4,3,2,1],
-    [1,1,1,1,1],
+    [1,2,3,4,5],
+    [8,8,8,8,8],
     [1,2,3,4,5],
     [1,2,3,4,5]],
 
     [[1,2,3,4,5],
     [1,2,3,4,5],
-    [2,2,2,2,1],
-    [5,4,3,2,1],
     [1,2,3,4,5],
-    [1,2,3,4,5]],
-
-    [[1,2,3,4,5],
+    [9,9,9,9,1],
     [1,2,3,4,5],
-    [5,4,3,2,1],
-    [5,4,3,2,1],
-    [1,1,1,4,5],
     [1,2,3,4,5]],
 
     [[1,2,3,4,5],
@@ -35,9 +28,30 @@ var symbolResults = [
     [5,4,3,2,1],
     [5,4,3,2,1],
     [1,2,3,4,5],
+    [1,2,3,4,5]],
+
+    [[1,2,3,4,5],
+    [1,2,3,4,5],
+    [7,8,3,2,1],
+    [5,4,9,2,1],
+    [1,2,3,6,5],
+    [1,2,3,4,5]],
+
+    [[1,2,3,4,5],
+    [1,2,3,4,5],
+    [5,8,3,2,7],
+    [5,4,6,2,1],
+    [6,2,3,6,5],
+    [1,2,3,4,5]],
+
+    [[1,2,3,4,5],
+    [1,2,3,4,7],
+    [9,7,3,2,1],
+    [6,4,9,2,1],
+    [1,2,3,6,5],
     [1,2,3,4,5]]
 ]
-var resultIndex = 0;
+
 var SymbolNewLayer = cc.Layer.extend({
     curScene: null,
     columnGap:23,
@@ -129,16 +143,17 @@ var SymbolNewLayer = cc.Layer.extend({
     stopSymbolIndex:-1,
     update:function (dt) {
         this.startAccumulateTime += dt;
-        if(this.startAccumulateTime<0.6){
-//            cc.log("this.startAccumulateTime="+this.startAccumulateTime)
+
+        if(this.startAccumulateTime<0.4){
+            cc.log("this.startAccumulateTime="+this.startAccumulateTime);
         }
-        if(this.startAccumulateTime<0.2){
+        if(this.startAccumulateTime<0.3){
             this.velocityAry[0] = this.defaultVelocity;
-        }else if(this.startAccumulateTime<0.3){
-            this.velocityAry[1] = this.defaultVelocity;
         }else if(this.startAccumulateTime<0.4){
-            this.velocityAry[2] = this.defaultVelocity;
+            this.velocityAry[1] = this.defaultVelocity;
         }else if(this.startAccumulateTime<0.5){
+            this.velocityAry[2] = this.defaultVelocity;
+        }else if(this.startAccumulateTime<0.6){
             this.velocityAry[3] = this.defaultVelocity;
         }else{
             this.velocityAry[4] = this.defaultVelocity;
@@ -207,7 +222,17 @@ var SymbolNewLayer = cc.Layer.extend({
     prepareResult:function(){
 //        cc.log("prepareResult-----")
         this.moveReelSpriteFlag = false;
-        resultIndex = 0;
+        if(resultIndex==0){
+//            resultIndex = Math.floor(Math.random()*5);
+            resultIndex+=1;
+        }else{
+            if(resultIndex>=6){
+                resultIndex=0;
+            }else{
+                resultIndex+=1;
+            }
+        }
+        cc.log("resultIndex====="+resultIndex)
         var offsetY = this.symbolHeight+this.symbolGap;
         for (var i = 0; i<this.reelNum; i++) {
             for (var j = 0; j < this.symbolNum; j++) {
@@ -228,7 +253,7 @@ var SymbolNewLayer = cc.Layer.extend({
     moveToDestination:function(reelIndex,offset){
         var isReady = this.reelSpriteReadyAry[reelIndex];
         if(isReady){
-            cc.log("---------="+reelIndex)
+//            cc.log("---------="+reelIndex)
             this.reelSpriteReadyAry[reelIndex] = false;
             var reelSprite = this.reelSpriteAry[reelIndex];
             reelSprite.y = 121*6 - offset;
@@ -269,10 +294,17 @@ var SymbolNewLayer = cc.Layer.extend({
         }
     },
     showWin:function(e,point){
-        var isWinningSpin = true;
+        var isWinningSpin;
+        if(resultIndex<3){
+            isWinningSpin = true;
+        }else{
+            isWinningSpin = false;
+        }
         if(isWinningSpin){
             this.setVisible(false)
             this.curScene.showWins(true);
+        }else{
+            this.curScene.setAvailable();
         }
     },
     getRandonSymbolName:function(){
