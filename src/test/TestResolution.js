@@ -3,6 +3,7 @@
  */
 var TestResolution = cc.Layer.extend({
     size: null,
+    controlBar:null,
     ctor: function () {
         this._super();
 
@@ -17,7 +18,7 @@ var TestResolution = cc.Layer.extend({
         cc.view.setResolutionPolicy(resolution)
 
 
-        cc.view.setResizeCallback(this.resetLayout);
+        cc.view.setResizeCallback(this.resetLayout.bind(this));
 
 
 //        cc.screen.requestFullScreen(null,this.onFullScreeChange);//try to enter full screen
@@ -52,10 +53,10 @@ var TestResolution = cc.Layer.extend({
         this.addChild(fg);
     },
     createControlBar:function(){
-        var controlBar = new ControlBarLayer();
-        controlBar.x = this.size.width/2;
-        controlBar.y = controlBar.height/2;
-        this.addChild(controlBar);
+        this.controlBar = new ControlBarLayer();
+        this.controlBar.x = this.size.width/2;
+        this.controlBar.y = this.size.height - this.controlBar.height/2;
+        this.addChild(this.controlBar);
     },
 
     resetLayout:function(){
@@ -63,10 +64,7 @@ var TestResolution = cc.Layer.extend({
 //        cc.view.resizeWithBrowserSize(true);
 //        cc.view.getResolutionPolicy
 
-//        cc.view.setResolutionPolicy(cc.ResolutionPolicy.FIXED_HEIGHT)
-        cc.log("reset layout--------------");
-        cc.log("frame-width="+cc.view.getFrameSize().width);
-        cc.log("frame-height="+cc.view.getFrameSize().height);
+//        cc.view.setResolutionPolicy(cc.ResolutionPolicy.FIXED_HEIGHT);
 //        cc.log("tVisibleSize-width="+cc.view.getVisibleSize().width);
 //        cc.log("ViewPort-width="+cc.view.getViewPortRect().width);
 
@@ -74,5 +72,12 @@ var TestResolution = cc.Layer.extend({
         // 比如说，你可以针对用户的移动设备方向来决定所要应用的适配模式
         // 比如说 获取宽度和高度，如果宽度大于高度就是横屏， 如果宽度小于高度就是竖屏
 
+//        cc.log("frame-width="+cc.view.getFrameSize().width);
+//        cc.log("frame-height="+cc.view.getFrameSize().height);
+        var scale = cc._canvas.height / this.size.height;
+
+        cc.log("reset layout==============");
+
+        cc.view.setResolutionPolicy(cc.ResolutionPolicy.FIXED_HEIGHT);
     }
 })
