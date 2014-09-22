@@ -13,7 +13,7 @@ var FGLayer = cc.Layer.extend({
         var size = cc.director.getWinSize();
 
         cc.spriteFrameCache.addSpriteFrames(res.textureTablet_plist,res.textureTablet_png);
-        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("baseUI/background_iPad.png")
+        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("background_iPad.png")
         var fg = cc.Sprite.createWithSpriteFrame(spriteFrame);
         fg.setAnchorPoint(0, 0);
         fg.setPosition(0, 0);

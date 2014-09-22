@@ -20,7 +20,7 @@ var TitleLayer = cc.Layer.extend({
     createUI:function(){
         var size = cc.director.getWinSize();
 
-        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("baseUI/title.png");
+        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("title.png");
         this.normalTitle = cc.Sprite.createWithSpriteFrame(spriteFrame);
         this.addChild(this.normalTitle);
 

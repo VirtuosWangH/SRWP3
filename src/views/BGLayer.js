@@ -13,7 +13,7 @@ var BGLayer = cc.Layer.extend({
         var size = cc.director.getWinSize();
 
         cc.spriteFrameCache.addSpriteFrames(res.textureTablet_plist);
-        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("baseUI/background_wood_ipad.png");
+        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("background_wood_ipad.png");
         var bg = cc.Sprite.createWithSpriteFrame(spriteFrame);
 
         bg.setPosition(cc.p(size.width/2,size.height/2));

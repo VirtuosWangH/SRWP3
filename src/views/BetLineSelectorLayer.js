@@ -24,17 +24,17 @@ var BetLineSelectorLayer = cc.Layer.extend({
     createUI:function(){
         var size = cc.director.getWinSize();
         this.size = size;
-        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("baseUI/Slider_track.png");
+        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("Slider_track.png");
         var leftBg = cc.Sprite.createWithSpriteFrame(spriteFrame);
         leftBg.setPosition(this.startX,size.height/2)
         this.addChild(leftBg);
 
-        spriteFrame = cc.spriteFrameCache.getSpriteFrame("baseUI/Slider_track.png");
+        spriteFrame = cc.spriteFrameCache.getSpriteFrame("Slider_track.png");
         var rightBg = cc.Sprite.createWithSpriteFrame(spriteFrame);
         rightBg.setPosition(size.width-this.startX,leftBg.getPosition().y);
         this.addChild(rightBg);
 
-        spriteFrame = cc.spriteFrameCache.getSpriteFrame("baseUI/Slider_ball.png");
+        spriteFrame = cc.spriteFrameCache.getSpriteFrame("Slider_ball.png");
         this.leftSlider = cc.Sprite.createWithSpriteFrame(spriteFrame);
         this.leftSlider.setPosition(this.startX,this.endY);
         this.addChild(this.leftSlider);
@@ -44,7 +44,7 @@ var BetLineSelectorLayer = cc.Layer.extend({
         numTF.setName("LNumber");
         this.leftSlider.addChild(numTF);
 
-        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("baseUI/Slider_ball.png");
+        var spriteFrame = cc.spriteFrameCache.getSpriteFrame("Slider_ball.png");
         this.rightSlider = cc.Sprite.createWithSpriteFrame(spriteFrame);
         this.rightSlider.setPosition(size.width-this.startX,this.endY);
         this.addChild(this.rightSlider);
