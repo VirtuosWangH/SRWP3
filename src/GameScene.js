@@ -21,6 +21,7 @@ var GameScene = cc.Scene.extend({
     },
     onEnter:function(){
         this._super();
+        cc.log("====onEnter=======================")
         this.initByMe();
 //        this.initTest();
     },
@@ -31,18 +32,49 @@ var GameScene = cc.Scene.extend({
         this.initLabel.setPosition(this.size.width/2,this.size.height/2);
         this.initLabel.setColor(cc.color(180, 180, 180));
         this.addChild(this.initLabel);
+
+//        addSpriteFrames will consume a lot of time
+//        cc.spriteFrameCache.addSpriteFrames(res.textureAssets01_plist);
+//        cc.spriteFrameCache.addSpriteFrames(res.textureAssets02_plist);
+//        cc.spriteFrameCache.addSpriteFrames(res.textureTablet_plist,res.textureTablet_png);
+//        cc.spriteFrameCache.addSpriteFrames(res.textureControl_plist,res.textureControl_png);
+//        cc.spriteFrameCache.addSpriteFrames(res.textureLine01_plist);
+//        cc.spriteFrameCache.addSpriteFrames(res.textureLine02_plist);
+//        cc.spriteFrameCache.addSpriteFrames(res.textureLine03_plist);
+
         if(!cc.sys.isMobile){
             this.initLabel.visible = false;
-            this.initLater()
+            this.initLater();
         }else{
-            this.scheduleOnce(this.initLater,0.1);
+//            this.scheduleOnce(this.initLater,0.1);
+            this.percentUnit = Math.floor(100/this.assetsAry.length);
+            this.scheduleOnce(this.prepareAssets,0.01);
+        }
+    },
+    percent:0,
+    percentUnit:0,
+    assetsAry:[res.textureAssets01_plist,res.textureAssets02_plist,
+        res.textureTablet_plist,res.textureControl_plist,
+        res.textureLine01_plist,res.textureLine02_plist,res.textureLine03_plist],
+    prepareAssets:function(){
+        cc.spriteFrameCache.addSpriteFrames(this.assetsAry[this.percent]);
+        this.percent +=1;
+        this.initLabel.setString("Loading..."+this.percent*this.percentUnit+"%");
+        cc.log("percent============"+this.initLabel.string);
+        if(this.percent<7){
+            this.runAction(cc.sequence(
+                cc.delayTime(0.01),
+                cc.callFunc(this.prepareAssets, this)
+            ));
+        }else{
+            this.initLater();
         }
     },
     initLater:function(){
         cc.log("initLater============"+Date.now());
         this.addChild(new BGLayer());
 
-        this.symbolLayer = SymbolLayer.create();
+//        this.symbolLayer = SymbolLayer.create();
         this.symbolLayer = new SymbolNewLayer();
         this.symbolLayer.curScene = this;
         this.addChild(this.symbolLayer);
@@ -106,7 +138,6 @@ var GameScene = cc.Scene.extend({
     },
     eventListener:function(){
         cc.log("======")
-
     },
     startSpin:function(){
         this.isAvailableSpin = false;
@@ -163,5 +194,15 @@ var GameScene = cc.Scene.extend({
         this.winFrameLayer.removeFrames();
 
         this.soundManger.playEffect(sounds.click, false);
+    },
+
+////////////////////////////////////////////////////////////
+    onEnterTransitionDidFinish: function () {
+        this._super();
+        cc.log("====onEnterTransitionDidFinish=======================")
+    },
+    onExitTransitionDidStart: function () {
+        this._super();
+        cc.log("====onExitTransitionDidStart=======================")
     }
 })

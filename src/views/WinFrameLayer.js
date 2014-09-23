@@ -31,7 +31,7 @@ var WinFrameLayer = cc.Layer.extend({
             for (var j=0; j<symbolNum; j++) {
                 var value = symbolAry[i][j];
                 if(value){
-                    var frameName = "winbox/winframe-0"+index+".png";
+                    var frameName = "winframe-0"+index+".png";
                     var spriteFrame = cc.spriteFrameCache.getSpriteFrame(frameName)
                     var winFrame = cc.Sprite.createWithSpriteFrame(spriteFrame);
                     var targetX = j*165;
@@ -46,13 +46,13 @@ var WinFrameLayer = cc.Layer.extend({
             }
         }
 
-        var circleName = "winnumbers/wincircle-0"+index+".png";
+        var circleName = "wincircle-0"+index+".png";
         var spriteFrame = cc.spriteFrameCache.getSpriteFrame(circleName);
         var lineNum = cc.Sprite.createWithSpriteFrame(spriteFrame);
         lineNum.setPosition(-70,firstFrameY);
         this.addChild(lineNum);
 
-        var tabName = "wintab/winboxbg-0"+index+".png";
+        var tabName = "winboxbg-0"+index+".png";
         var spriteFrame = cc.spriteFrameCache.getSpriteFrame(tabName);
         var winTab = cc.Sprite.createWithSpriteFrame(spriteFrame);
         winTab.setPosition(0,firstFrameY-55);

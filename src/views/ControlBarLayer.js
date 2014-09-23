@@ -18,7 +18,7 @@ var ControlBarLayer = cc.Layer.extend({
         spriteFrame = cc.spriteFrameCache.getSpriteFrame("SpinBtn.png");
         var spinNormal = cc.Sprite.createWithSpriteFrame(spriteFrame);
         var spinSelect = cc.Sprite.createWithSpriteFrame(spriteFrame);
-        spinSelect.setScale(0.9,0.9);
+        spinSelect.setOpacity(80);
         this.spinBtn = cc.MenuItemSprite.create(spinNormal, spinSelect,this.onSpin,this);
 
         spriteFrame = cc.spriteFrameCache.getSpriteFrame("PaytableBtn.png");
