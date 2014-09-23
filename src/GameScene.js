@@ -3,6 +3,8 @@
  */
 var resultIndex = 0;
 var GameScene = cc.Scene.extend({
+    size:null,
+    initLabel:null,
     isAvailableSpin:true,
     symbolLayer:null,
     controlBar:null,
@@ -23,10 +25,24 @@ var GameScene = cc.Scene.extend({
 //        this.initTest();
     },
     initByMe:function () {
-        var size = cc.director.getWinSize();
+        cc.log("initByMe============="+Date.now());
+        this.size = cc.director.getWinSize();
+        this.initLabel = new cc.LabelTTF("Loading...", "Arial", 24);
+        this.initLabel.setPosition(this.size.width/2,this.size.height/2);
+        this.initLabel.setColor(cc.color(180, 180, 180));
+        this.addChild(this.initLabel);
+        if(!cc.sys.isMobile){
+            this.initLabel.visible = false;
+            this.initLater()
+        }else{
+            this.scheduleOnce(this.initLater,0.1);
+        }
+    },
+    initLater:function(){
+        cc.log("initLater============"+Date.now());
         this.addChild(new BGLayer());
 
-//        this.symbolLayer = SymbolLayer.create();
+        this.symbolLayer = SymbolLayer.create();
         this.symbolLayer = new SymbolNewLayer();
         this.symbolLayer.curScene = this;
         this.addChild(this.symbolLayer);
@@ -35,10 +51,10 @@ var GameScene = cc.Scene.extend({
 
         this.betLineSelectorLayer = new BetLineSelectorLayer();
         this.betLineSelectorLayer.curScene = this,
-        this.addChild(this.betLineSelectorLayer);
+            this.addChild(this.betLineSelectorLayer);
 
         this.titleLayer = new TitleLayer();
-        this.titleLayer.setPosition(size.width/2,size.height - 50);
+        this.titleLayer.setPosition(this.size.width/2,this.size.height - 50);
         this.addChild(this.titleLayer)
 
         this.controlBar = new ControlBarLayer();
@@ -63,6 +79,8 @@ var GameScene = cc.Scene.extend({
         this.soundManger = new SoundManger();
         this.soundManger.init();
         this.soundManger.playMusic(sounds.gameStart, false);
+        cc.log("playMusic============"+Date.now())
+        this.removeChild(this.initLabel);
     },
     initTest:function(){
 //        var lineClipping = new TestLineClipping();

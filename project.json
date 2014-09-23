@@ -8,7 +8,7 @@
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
 
-    "modules" : ["cocos2d"],
+    "modules" : ["labels","menus","transitions","audio","clipping-nodes"],
 
     "jsList" : [
         "src/resource.js",

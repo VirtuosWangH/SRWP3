@@ -6,8 +6,8 @@ var HelloWorldLayer = cc.Layer.extend({
         // 1. super init first
         this._super();
 
-//        this.testSwitchScene();
-        this.start();
+        this.testSwitchScene();
+//        this.start();
     },
     testSwitchScene:function(){
         var startItem = cc.MenuItemFont.create("Game Start",this.start,this);
