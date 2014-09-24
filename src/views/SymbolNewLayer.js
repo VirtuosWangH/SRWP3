@@ -1,57 +1,6 @@
 /**
  * Created by wanghe on 2014/8/20.
  */
-var symbolResults = [
-    [[1,2,3,4,5],
-    [1,2,3,4,5],
-    [1,2,3,4,5],
-    [7,7,7,7,7],
-    [1,2,3,4,5],
-    [1,2,3,4,5]],
-
-    [[1,2,3,4,5],
-    [1,2,3,4,5],
-    [1,2,3,4,5],
-    [8,8,8,8,8],
-    [1,2,3,4,5],
-    [1,2,3,4,5]],
-
-    [[1,2,3,4,5],
-    [1,2,3,4,5],
-    [1,2,3,4,5],
-    [9,9,9,9,1],
-    [1,2,3,4,5],
-    [1,2,3,4,5]],
-
-    [[1,2,3,4,5],
-    [1,2,3,4,5],
-    [5,4,3,2,1],
-    [5,4,3,2,1],
-    [1,2,3,4,5],
-    [1,2,3,4,5]],
-
-    [[1,2,3,4,5],
-    [1,2,3,4,5],
-    [7,8,3,2,1],
-    [5,4,9,2,1],
-    [1,2,3,6,5],
-    [1,2,3,4,5]],
-
-    [[1,2,3,4,5],
-    [1,2,3,4,5],
-    [5,8,3,2,7],
-    [5,4,6,2,1],
-    [6,2,3,6,5],
-    [1,2,3,4,5]],
-
-    [[1,2,3,4,5],
-    [1,2,3,4,7],
-    [9,7,3,2,1],
-    [6,4,9,2,1],
-    [1,2,3,6,5],
-    [1,2,3,4,5]]
-]
-
 var SymbolNewLayer = cc.Layer.extend({
     curScene: null,
     columnGap:23,
@@ -96,7 +45,7 @@ var SymbolNewLayer = cc.Layer.extend({
             var reelSprite = new cc.Sprite();
             var symbolReel = [];
             for (var j = 0; j<this.symbolNum; j++) {
-                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(this.getRandonSymbolName());
+                var spriteFrame = SymbolLayerSkin.getRandomSymbolFrame();
                 var symbol = cc.Sprite.createWithSpriteFrame(spriteFrame);
                 var offsetY = this.symbolHeight+this.symbolGap;
                 symbol.y = offsetY*(j-1);
@@ -114,7 +63,7 @@ var SymbolNewLayer = cc.Layer.extend({
         for (var i = 0; i<this.reelNum; i++) {
             var symbolReel = [];
             for (var j = 0; j<this.symbolNum; j++) {
-                var spriteFrame = cc.spriteFrameCache.getSpriteFrame(this.getBlurRandonSymbolName());
+                var spriteFrame = SymbolLayerSkin.getBlurRandomSymbolFrame();
                 var symbol = cc.Sprite.createWithSpriteFrame(spriteFrame);
                 var offsetX = this.columnWidth+this.columnGap;
                 var offsetY = this.symbolHeight+this.symbolGap;
@@ -226,8 +175,8 @@ var SymbolNewLayer = cc.Layer.extend({
         for (var i = 0; i<this.reelNum; i++) {
             for (var j = 0; j < this.symbolNum; j++) {
                 var symbol =  this.symbolGrad[i][j];
-                var symbolIndex = symbolResults[resultIndex][j][i];
-                var frame = cc.spriteFrameCache.getSpriteFrame("Symbol_0"+symbolIndex+".png");
+                var symbolIndex = SymbolLayerSkin.symbolResults[resultIndex][j][i];
+                var frame = SymbolLayerSkin.getFrameByIndex(symbolIndex);
                 symbol.setSpriteFrame(frame);
             }
             if(this.reelSpriteReadyAry[i]){
@@ -295,17 +244,5 @@ var SymbolNewLayer = cc.Layer.extend({
         }else{
             this.curScene.setAvailable();
         }
-    },
-    getRandonSymbolName:function(){
-        var tempNum = Math.ceil(Math.random()*12);
-        var num = tempNum>9?tempNum:"0"+tempNum;
-        var symbolName = "Symbol_"+num+".png";
-        return symbolName;
-    },
-    getBlurRandonSymbolName:function(){
-        var tempNum = Math.ceil(Math.random()*12);
-        var num = tempNum>9?tempNum:"0"+tempNum;
-        var symbolName = "blur_Symbol_"+num+".png";
-        return symbolName;
     }
 })

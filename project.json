@@ -27,6 +27,8 @@
         "src/views/BetLineSelectorLayer.js",
         "src/views/TitleLayer.js",
 
+        "src/views/skins/SymbolLayerSkin.js",
+
         "src/model/vo/SymbolVO.js",
 
         "src/test/TestLineClipping.js",
@@ -37,5 +39,7 @@
         "src/test/TestResolution.js",
 
         "src/SoundManger.js"
+
+
     ]
 }
