@@ -13,6 +13,7 @@ var WinLinesLayer = cc.Layer.extend({
         this._super();
 //        this.setVisible(false);
         this.size = cc.director.getWinSize();
+        this.initEventListener();
 
         cc.spriteFrameCache.addSpriteFrames(res.textureLine01_plist);
         cc.spriteFrameCache.addSpriteFrames(res.textureLine02_plist);
@@ -31,6 +32,9 @@ var WinLinesLayer = cc.Layer.extend({
         this.stencil = cc.Sprite.create();
         this.stencil.setPosition(185,this.size.height/2+100);
         this.winLineClipper.setStencil(this.stencil);
+    },
+    initEventListener:function(){
+        cc.eventManager.addCustomListener(CEvent.BetOne,this.betOneListener.bind(this));
     },
     createUI:function(){
         this.linesAry = [];
@@ -129,5 +133,9 @@ var WinLinesLayer = cc.Layer.extend({
 //        var tempLine = cc.LayerColor.create(cc.c4b(0,255,255,255),this.size.width,this.size.height);
 
         this.winLineClipper.addChild(tempLine);
+    },
+    betOneListener:function(event){
+        this.setVisible(true)
+        this.addBetLine();
     }
 })

@@ -13,9 +13,13 @@ var TitleLayer = cc.Layer.extend({
     isEasing:false,
     ctor: function () {
         this._super();
+        this.initEventListener()
         cc.spriteFrameCache.addSpriteFrames(res.textureTablet_plist,res.textureTablet_png);
         cc.spriteFrameCache.addSpriteFrames(res.textureAssets02_plist,res.textureAssets02_png);
         this.createUI();
+    },
+    initEventListener:function(){
+        cc.eventManager.addCustomListener(CEvent.BetOne,this.betOneListener.bind(this));
     },
     createUI:function(){
         var size = cc.director.getWinSize();
@@ -79,5 +83,8 @@ var TitleLayer = cc.Layer.extend({
     completeSwitchTitle:function(){
         this.currentTitle = this.targetTitle;
         this.isEasing = false;
+    },
+    betOneListener:function(event){
+        this.switchTitle("normal");
     }
 })

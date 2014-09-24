@@ -4,6 +4,9 @@
 var SoundManger = cc.Class.extend({
     soundManger:null,
     spinNum:0,
+    ctor:function() {
+        this.init();
+    },
     init:function(){
         this.soundManger = cc.audioEngine;
     },
@@ -23,3 +26,10 @@ var SoundManger = cc.Class.extend({
         }
     }
 })
+SoundManger.instance = null;
+SoundManger.getInstance = function(){
+    if(!SoundManger.instance){
+        SoundManger.instance = new SoundManger();
+    }
+    return SoundManger.instance;
+}

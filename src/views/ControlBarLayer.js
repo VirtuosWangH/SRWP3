@@ -69,8 +69,8 @@ var ControlBarLayer = cc.Layer.extend({
     },
     onBetOne:function(){
         if(this.curScene.isAvailableSpin){
-            this.curScene.showWins(false);
-            this.curScene.addOneBetLine();
+            SoundManger.getInstance().playEffect(sounds.click, false);
+            cc.eventManager.dispatchCustomEvent(CEvent.BetOne);
             this.alreadyMax = false;
         }
     }

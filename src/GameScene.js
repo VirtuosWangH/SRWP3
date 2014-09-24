@@ -109,7 +109,6 @@ var GameScene = cc.Scene.extend({
         this.addChild(this.payTableLayer);
 
         this.soundManger = new SoundManger();
-        this.soundManger.init();
         this.soundManger.playMusic(sounds.gameStart, false);
 //        cc.log("playMusic============"+Date.now())
         this.removeChild(this.initLabel);
@@ -184,13 +183,6 @@ var GameScene = cc.Scene.extend({
         this.winLinesLayer.setVisible(true);
         this.winLinesLayer.changeBetLine(num);
         this.betLineSelectorLayer.updateBetLine(num);
-        this.winFrameLayer.removeFrames();
-
-        this.soundManger.playEffect(sounds.click, false);
-    },
-    addOneBetLine:function(){
-        this.winLinesLayer.setVisible(true);
-        this.winLinesLayer.addBetLine();
         this.winFrameLayer.removeFrames();
 
         this.soundManger.playEffect(sounds.click, false);

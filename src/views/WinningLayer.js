@@ -26,6 +26,7 @@ var WinningLayer = cc.Layer.extend({
         this.setPosition(185,205);
         this.setVisible(false);
         this.init();
+        this.initEventListener()
         cc.spriteFrameCache.addSpriteFrames(res.textureAssets01_plist,res.textureAssets01_png);
     },
     init:function(){
@@ -61,6 +62,9 @@ var WinningLayer = cc.Layer.extend({
              [1,2,3,6,5]]
         ]
         this.winSymbol = [7,8,9,0,0,0,0];
+    },
+    initEventListener:function(){
+        cc.eventManager.addCustomListener(CEvent.BetOne,this.betOneListener.bind(this));
     },
     preSetWin:function(){
         this.symbolGrad = [];
@@ -142,5 +146,9 @@ var WinningLayer = cc.Layer.extend({
                 }
             }
         }
+    },
+
+    betOneListener:function(event){
+        this.showWins(false);
     }
 })

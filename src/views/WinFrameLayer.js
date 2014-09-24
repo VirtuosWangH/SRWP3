@@ -7,10 +7,14 @@ var WinFrameLayer = cc.Layer.extend({
     ctor:function(){
         this._super();
         this.setPosition(185,205);
+        this.initEventListener();
 //        this.setVisible(false);
         this.winFrames = [];
         cc.spriteFrameCache.addSpriteFrames(res.textureTablet_plist);
         this.createUI();
+    },
+    initEventListener:function(){
+        cc.eventManager.addCustomListener(CEvent.BetOne,this.betOneListener.bind(this));
     },
     createUI:function(){
 //        var winTab = cc.Sprite.createWithSpriteFrameName("wintab/winboxbg-001.png");
@@ -64,5 +68,8 @@ var WinFrameLayer = cc.Layer.extend({
     },
     removeFrames:function(lineIndex){
         this.removeAllChildren();
+    },
+    betOneListener:function(event){
+        this.removeFrames();
     }
 })

@@ -27,9 +27,13 @@ var SymbolNewLayer = cc.Layer.extend({
         this.tagName = "test";
         cc.spriteFrameCache.addSpriteFrames(res.textureAssets01_plist);
         this.setPosition(185,205);
+        this.initEventListener()
     },
     init:function () {
         cc.log("init is not invoke except using cc.layer.create()");
+    },
+    initEventListener:function(){
+        cc.eventManager.addCustomListener(CEvent.BetOne,this.betOneListener.bind(this));
     },
     onEnter:function(){
         this._super();
@@ -244,5 +248,8 @@ var SymbolNewLayer = cc.Layer.extend({
         }else{
             this.curScene.setAvailable();
         }
+    },
+    betOneListener:function(event){
+        this.setVisible(true);
     }
 })

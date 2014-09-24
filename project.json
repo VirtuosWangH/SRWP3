@@ -29,6 +29,8 @@
 
         "src/views/skins/SymbolLayerSkin.js",
 
+        "src/event/CEvent.js",
+
         "src/model/vo/SymbolVO.js",
 
         "src/test/TestLineClipping.js",
