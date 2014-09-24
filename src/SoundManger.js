@@ -8,11 +8,11 @@ var SoundManger = cc.Class.extend({
         this.soundManger = cc.audioEngine;
     },
     playMusic:function(sound, isLoop){
-        cc.log("---playMusic---")
+//        cc.log("---playMusic---")
         this.soundManger.playMusic(sound, isLoop);
     },
     playEffect:function(sound, isLoop){
-        cc.log("---playEffect---")
+//        cc.log("---playEffect---")
         if(sound == "spin"){
             var index = this.spinNum%6;
             var sound = "res/sounds/spin_"+index+".mp3"

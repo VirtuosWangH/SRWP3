@@ -21,12 +21,12 @@ var GameScene = cc.Scene.extend({
     },
     onEnter:function(){
         this._super();
-        cc.log("====onEnter=======================")
+//        cc.log("====onEnter=======================")
         this.initByMe();
 //        this.initTest();
     },
     initByMe:function () {
-        cc.log("initByMe============="+Date.now());
+//        cc.log("initByMe============="+Date.now());
         this.size = cc.director.getWinSize();
         this.initLabel = new cc.LabelTTF("Loading...", "Arial", 24);
         this.initLabel.setPosition(this.size.width/2,this.size.height/2);
@@ -46,9 +46,9 @@ var GameScene = cc.Scene.extend({
             this.initLabel.visible = false;
             this.initLater();
         }else{
-//            this.scheduleOnce(this.initLater,0.1);
-            this.percentUnit = Math.floor(100/this.assetsAry.length);
-            this.scheduleOnce(this.prepareAssets,0.01);
+            this.scheduleOnce(this.initLater,0.1);
+//            this.percentUnit = Math.floor(100/this.assetsAry.length);
+//            this.scheduleOnce(this.prepareAssets,0.01);
         }
     },
     percent:0,
@@ -60,7 +60,7 @@ var GameScene = cc.Scene.extend({
         cc.spriteFrameCache.addSpriteFrames(this.assetsAry[this.percent]);
         this.percent +=1;
         this.initLabel.setString("Loading..."+this.percent*this.percentUnit+"%");
-        cc.log("percent============"+this.initLabel.string);
+//        cc.log("percent============"+this.initLabel.string);
         if(this.percent<7){
             this.runAction(cc.sequence(
                 cc.delayTime(0.01),
@@ -71,7 +71,7 @@ var GameScene = cc.Scene.extend({
         }
     },
     initLater:function(){
-        cc.log("initLater============"+Date.now());
+//        cc.log("initLater============"+Date.now());
         this.addChild(new BGLayer());
 
 //        this.symbolLayer = SymbolLayer.create();
@@ -111,7 +111,7 @@ var GameScene = cc.Scene.extend({
         this.soundManger = new SoundManger();
         this.soundManger.init();
         this.soundManger.playMusic(sounds.gameStart, false);
-        cc.log("playMusic============"+Date.now())
+//        cc.log("playMusic============"+Date.now())
         this.removeChild(this.initLabel);
     },
     initTest:function(){
@@ -199,10 +199,10 @@ var GameScene = cc.Scene.extend({
 ////////////////////////////////////////////////////////////
     onEnterTransitionDidFinish: function () {
         this._super();
-        cc.log("====onEnterTransitionDidFinish=======================")
+//        cc.log("====onEnterTransitionDidFinish=======================")
     },
     onExitTransitionDidStart: function () {
         this._super();
-        cc.log("====onExitTransitionDidStart=======================")
+//        cc.log("====onExitTransitionDidStart=======================")
     }
 })

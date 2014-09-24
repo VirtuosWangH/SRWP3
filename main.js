@@ -5,13 +5,13 @@ cc.game.onStart = function(){
     cc.view.resizeWithBrowserSize(true);
     //load resources
     this.beginTime = Date.now();
-    cc.log("beginTimeTime========"+this.beginTime)
+//    cc.log("beginTimeTime========"+this.beginTime)
 //    cc._loaderImage="res/assets/assets01/symbolMask.png"//set customer loader image or over write the loaderScene
     cc.LoaderScene.preload(g_resources, function () {
 //        cc.director.runScene(new HelloWorldScene());
         cc.director.runScene(new GameScene());
         var loadingTime = Date.now()-this.beginTime;
-        cc.log("loadingTime=========="+loadingTime);
+//        cc.log("loadingTime=========="+loadingTime);
     }.bind(this), this);
 }.bind(this);
 cc.game.run();
