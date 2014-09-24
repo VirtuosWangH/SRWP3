@@ -149,7 +149,7 @@ var SymbolNewLayer = cc.Layer.extend({
             if(this.speedAry[i]<this.maxSpeed){
                 this.speedAry[i] = this.maxSpeed;
             }
-            if(this.moveReelSpriteFlag){
+            if(this.moveReelSpriteFlag && this.reelSpriteReadyAry[i]){
                 if(reelSprite.y<=-121*6){
                     reelSprite.y += 0;
                     if(i == this.reelNum-1){
@@ -221,7 +221,7 @@ var SymbolNewLayer = cc.Layer.extend({
                 resultIndex+=1;
             }
         }
-        cc.log("resultIndex====="+resultIndex)
+//        cc.log("resultIndex====="+resultIndex)
         var offsetY = this.symbolHeight+this.symbolGap;
         for (var i = 0; i<this.reelNum; i++) {
             for (var j = 0; j < this.symbolNum; j++) {
@@ -230,9 +230,10 @@ var SymbolNewLayer = cc.Layer.extend({
                 var frame = cc.spriteFrameCache.getSpriteFrame("Symbol_0"+symbolIndex+".png");
                 symbol.setSpriteFrame(frame);
             }
-            var reelSprite = this.reelSpriteAry[i];
-//            reelSprite.x +=20;//for test the position
-            reelSprite.y = offsetY*this.symbolNum;
+            if(this.reelSpriteReadyAry[i]){
+                var reelSprite = this.reelSpriteAry[i];
+                reelSprite.y = offsetY*this.symbolNum;
+            }
         }
     },
     stopRoll:function(){
@@ -242,7 +243,6 @@ var SymbolNewLayer = cc.Layer.extend({
     moveToDestination:function(reelIndex,offset){
         var isReady = this.reelSpriteReadyAry[reelIndex];
         if(isReady){
-//            cc.log("---------="+reelIndex)
             this.reelSpriteReadyAry[reelIndex] = false;
             var reelSprite = this.reelSpriteAry[reelIndex];
             reelSprite.y = 121*6 - offset;
@@ -250,11 +250,12 @@ var SymbolNewLayer = cc.Layer.extend({
             var easeMove = moveAnim.easing(cc.easeBackOut());
             var onComplete = cc.callFunc(this.finishRoll,this);
             reelSprite.runAction(cc.sequence(moveAnim,onComplete));
-//            cc.log("---------="+reelSprite.y)
+//            cc.log("moveToDestination---------="+reelSprite.y)
         }
 
     },
     finishRoll:function(){
+//        cc.log("finishRoll---------="+this.reelSpriteAry[0].y)
         if(this.reelSpriteReadyAry[4] == false){
             this.resetInfo();
             var delay = cc.delayTime(1);
