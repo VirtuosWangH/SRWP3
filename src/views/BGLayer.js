@@ -17,6 +17,6 @@ var BGLayer = cc.Layer.extend({
         var bg = cc.Sprite.createWithSpriteFrame(spriteFrame);
 
         bg.setPosition(cc.p(size.width/2,size.height/2));
-        this.addChild(bg)
+        this.addChild(bg);
     }
 })

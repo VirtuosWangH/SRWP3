@@ -22,8 +22,30 @@ var GameScene = cc.Scene.extend({
     onEnter:function(){
         this._super();
 //        cc.log("====onEnter=======================")
+        this.initDeviceMenuHandler();
         this.initByMe();
 //        this.initTest();
+    },
+    initDeviceMenuHandler:function(){
+        cc.eventManager.addListener({event:cc.EventListener.KEYBOARD,
+            onKeyReleased:function(keyCode,event){
+                if(keyCode == cc.KEY.back){
+                    cc.log("backClick-------------");
+                    cc.director.end();
+                };
+                if(keyCode == cc.KEY.menu){
+                    cc.log("menuClick-------------");
+                    cc.director.pause();//just pause render
+                }
+            }
+        },this);
+        cc.eventManager.addCustomListener(cc.game.EVENT_HIDE,function(){
+            cc.log("EVENT_HIDEClick-------------");
+        });
+        cc.eventManager.addCustomListener(cc.game.EVENT_SHOW,function(){
+            cc.log("EVENT_SHOWClick-------------");
+        })
+
     },
     initByMe:function () {
 //        cc.log("initByMe============="+Date.now());
@@ -197,4 +219,7 @@ var GameScene = cc.Scene.extend({
         this._super();
 //        cc.log("====onExitTransitionDidStart=======================")
     }
+
+///////////////////////////////////////////////////////////
+
 })
