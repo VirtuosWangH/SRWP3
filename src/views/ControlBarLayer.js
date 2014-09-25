@@ -70,7 +70,7 @@ var ControlBarLayer = cc.Layer.extend({
     onBetOne:function(){
         if(this.curScene.isAvailableSpin){
             SoundManger.getInstance().playEffect(sounds.click, false);
-            cc.eventManager.dispatchCustomEvent(CEvent.BetOne);
+            cc.eventManager.dispatchCustomEvent(CEvent.BetOne,{test:"toddy"});
             this.alreadyMax = false;
         }
     }
