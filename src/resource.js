@@ -67,7 +67,12 @@ var res = {
     texturewinline047_xml : "res/exported/winLines/winline-047.xml",
     texturewinline048_xml : "res/exported/winLines/winline-048.xml",
     texturewinline049_xml : "res/exported/winLines/winline-049.xml",
-    texturewinline050_xml : "res/exported/winLines/winline-050.xml"
+    texturewinline050_xml : "res/exported/winLines/winline-050.xml",
+    font:{
+        type:"font",
+        name:"WinchGras",
+        srcs:["res/fonts/winchg.ttf"]
+    }
 };
 
 var g_resources = [];
@@ -87,7 +92,3 @@ var sounds = {
     spin5:"res/sounds/spin_5.mp3",
     win0:"res/sounds/win_0.mp3"
 };
-var g_cocosdeshion = [
-    "res/sounds/game_start.mp3",
-    "res/sounds/click.mp3"
- ];

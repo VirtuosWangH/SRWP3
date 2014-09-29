@@ -50,7 +50,7 @@ var GameScene = cc.Scene.extend({
     initByMe:function () {
 //        cc.log("initByMe============="+Date.now());
         this.size = cc.director.getWinSize();
-        this.initLabel = new cc.LabelTTF("Loading...", "Arial", 24);
+        this.initLabel = new cc.LabelTTF("Loading...", "WinchGras", 24);
         this.initLabel.setPosition(this.size.width/2,this.size.height/2);
         this.initLabel.setColor(cc.color(180, 180, 180));
         this.addChild(this.initLabel);
